@@ -5,13 +5,19 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.myskills.ResumeViewModel
 import com.example.myskills.ui.SkillItem
 import com.example.myskills.ui.StudyItem
 import com.example.myskills.ui.models.Education
@@ -19,8 +25,22 @@ import com.example.myskills.ui.models.Resume
 import com.example.myskills.ui.models.Skill
 
 @Composable
-fun ResumeScreen(resume: Resume, modifier: Modifier = Modifier) {
-    Column(modifier = modifier.padding(16.dp)) {
+fun ResumeScreen(viewModel: ResumeViewModel, modifier: Modifier = Modifier) {
+    val resume by viewModel.resumes.collectAsState()
+
+    when (resume) {
+        null -> CircularProgressIndicator()
+        is Resume -> ResumeContent(resume as Resume, modifier)
+    }
+
+}
+
+@Composable
+fun ResumeContent(resume: Resume, modifier: Modifier) {
+    Column(
+        modifier = modifier
+            .padding(16.dp)
+    ) {
         // ... (Other sections like Personal Info, Experience, Education)
         Text(
             text = resume.name,
@@ -48,7 +68,7 @@ fun ResumeScreen(resume: Resume, modifier: Modifier = Modifier) {
             style = MaterialTheme.typography.headlineMedium,
             modifier = Modifier.padding(top = 16.dp)
         )
-        LazyColumn {
+        LazyColumn(modifier = modifier) {
             items(resume.skills) { skill ->
                 SkillItem(skill)
             }
@@ -59,7 +79,7 @@ fun ResumeScreen(resume: Resume, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun ResumeScreenPreview() {
-    ResumeScreen(
+    ResumeContent(
         Resume(
             name = "Jonathan Roberto Aste",
             phone = "+5491134166724",
@@ -92,5 +112,6 @@ fun ResumeScreenPreview() {
                 Skill("English", "10 years")
             ),
         ),
+        modifier = Modifier.verticalScroll(rememberScrollState())
     )
 }

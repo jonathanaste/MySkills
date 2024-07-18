@@ -1,4 +1,4 @@
-package com.example.myskills
+package com.example.myskills.repositories
 
 import com.example.myskills.ui.models.Education
 import com.example.myskills.ui.models.Resume

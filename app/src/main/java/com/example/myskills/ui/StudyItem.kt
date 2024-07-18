@@ -2,6 +2,7 @@ package com.example.myskills.ui
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
@@ -17,7 +18,7 @@ import com.example.myskills.ui.theme.MySkillsTheme
 
 @Composable
 fun StudyItem(study: Education) {
-    Row(modifier = Modifier.padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+    Row(modifier = Modifier.padding(vertical = 4.dp).fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         Text(text = study.title, style = MaterialTheme.typography.bodyMedium)
         Spacer(modifier = Modifier.width(8.dp))
         Text(text = "(${study.institution})", style = MaterialTheme.typography.bodySmall)

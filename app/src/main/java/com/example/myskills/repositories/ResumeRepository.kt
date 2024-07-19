@@ -11,6 +11,7 @@ class ResumeRepository {
         return flowOf(
             Resume(
                 name = "Jonathan Roberto Aste",
+                position = "Android Developer",
                 phone = "+5491134166724",
                 email = "Jonathan.aste@gmail.com",
                 studies = listOf(
@@ -18,14 +19,14 @@ class ResumeRepository {
                         institution = "Universidad Argentina De la Empresa",
                         title = "Bacherlor of Computer Science",
                         startDate = "03/2011",
-                        endDate = "06/2016",
+                        _endDate = "06/2016",
                         description = ""
                     ),
                     Education(
                         institution = "Android Codelabs",
                         title = "Android Developer",
                         startDate = "03/2020",
-                        endDate = "-",
+                        _endDate = "",
                         description = ""
                     )
                 ),

@@ -1,7 +1,9 @@
 package com.example.myskills.ui.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -10,7 +12,12 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,10 +41,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import com.example.myskills.R
-import dagger.hilt.android.AndroidEntryPoint
+import com.example.myskills.ui.elements.SkillTagView
 
 @Composable
-fun ResumeScreen(modifier: Modifier) {
+fun ResumeScreen(modifier: Modifier = Modifier) {
     val viewModel: ResumeViewModel = hiltViewModel()
     val resume by viewModel.resumes.collectAsState()
 
@@ -51,8 +58,11 @@ fun ResumeScreen(modifier: Modifier) {
 @Composable
 fun ResumeContent(resume: Resume, modifier: Modifier) {
     LazyColumn(
-        modifier = modifier.padding(16.dp).fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = modifier
+            .padding(16.dp)
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceEvenly
     ) {
         item {
             val painter = rememberAsyncImagePainter(
@@ -65,7 +75,7 @@ fun ResumeContent(resume: Resume, modifier: Modifier) {
                 Image(
                     painter = painter,
                     contentDescription = "Profile Picture",
-                    modifier = modifier
+                    modifier = Modifier
                         .size(100.dp)
                         .clip(CircleShape),
                     contentScale = ContentScale.Crop
@@ -87,37 +97,70 @@ fun ResumeContent(resume: Resume, modifier: Modifier) {
                 modifier = Modifier
                     .padding(top = 16.dp)
                     .fillMaxWidth(),
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
         }
+
         item {
             Text(
-                text = resume.phone,
-                style = MaterialTheme.typography.bodyMedium,
+                text = resume.position,
+                style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier
-                    .padding(top = 16.dp)
                     .fillMaxWidth(),
                 textAlign = TextAlign.Center
             )
         }
+
+        //Contact Information
         item {
-            Text(
-                text = resume.email,
-                style = MaterialTheme.typography.bodyMedium,
+            Row(
                 modifier = Modifier
-                    .padding(top = 16.dp)
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Phone,
+                    contentDescription = "Phone Icon",
+                    Modifier.size(16.dp)
+                )
+                Text(
+                    text = resume.phone,
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+
+                Icon(
+                    imageVector = Icons.Filled.Email,
+                    contentDescription = "Email Icon",
+                    Modifier.size(16.dp)
+
+                )
+                Text(
+                    text = resume.email,
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+            }
+
+        }
+
+        item {
+            HorizontalDivider(
+                modifier = Modifier
+                    .padding(16.dp)
                     .fillMaxWidth(),
-                textAlign = TextAlign.Center
+                thickness = 1.dp
             )
         }
-        // ... (Other sections like Personal Info, Experience, Education)
 
         //Studies Section
         item {
             Text(
                 text = "Education",
-                style = MaterialTheme.typography.headlineMedium,
-                modifier = Modifier.padding(top = 16.dp)
+                style = MaterialTheme.typography.headlineSmall,
+                modifier = Modifier
+                    .fillMaxWidth(),
+                textAlign = TextAlign.Start
             )
         }
 
@@ -126,16 +169,27 @@ fun ResumeContent(resume: Resume, modifier: Modifier) {
         }
 
         item {
+            HorizontalDivider(
+                modifier = Modifier
+                    .padding( 16.dp)
+                    .fillMaxWidth(),
+                thickness = 1.dp
+            )
+        }
+
+        item {
             Text(
                 text = "Skills",
-                style = MaterialTheme.typography.headlineMedium,
-                modifier = Modifier.padding(top = 16.dp)
+                style = MaterialTheme.typography.headlineSmall,
+                modifier = Modifier
+                    .fillMaxWidth(),
+                textAlign = TextAlign.Start
             )
         }
         // Skills Section
 
-        items(resume.skills) { skill ->
-            SkillItem(skill)
+        item{
+            SkillTagView(resume.skills)
         }
 
     }
@@ -147,6 +201,7 @@ fun ResumeScreenPreview() {
     ResumeContent(
         Resume(
             name = "Jonathan Roberto Aste",
+            position = "Android Developer",
             phone = "+5491134166724",
             email = "Jonathan.aste@gmail.com",
             studies = listOf(
@@ -154,14 +209,14 @@ fun ResumeScreenPreview() {
                     institution = "Universidad Argentina De la Empresa",
                     title = "Bacherlor of Computer Science",
                     startDate = "03/2011",
-                    endDate = "06/2016",
+                    _endDate = "06/2016",
                     description = ""
                 ),
                 Education(
                     institution = "Android Codelabs",
                     title = "Android Developer",
                     startDate = "03/2020",
-                    endDate = "-",
+                    _endDate = "",
                     description = ""
                 )
             ),

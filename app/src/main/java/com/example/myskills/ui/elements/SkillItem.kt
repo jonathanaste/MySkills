@@ -17,7 +17,7 @@ import com.example.myskills.ui.theme.MySkillsTheme
 
 @Composable
 fun SkillItem(skill: Skill) {
-    Row(modifier = Modifier.padding(vertical = 4.dp).fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+    Row(modifier = Modifier.padding(4.dp).fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         Text(text = skill.name, style = MaterialTheme.typography.bodyMedium)
         Spacer(modifier = Modifier.width(8.dp))
         Text(text = "(${skill.proficiency})", style = MaterialTheme.typography.bodySmall)

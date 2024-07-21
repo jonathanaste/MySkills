@@ -62,7 +62,6 @@ fun ResumeContent(resume: Resume, modifier: Modifier) {
             .padding(16.dp)
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceEvenly
     ) {
         item {
             val painter = rememberAsyncImagePainter(
@@ -171,7 +170,7 @@ fun ResumeContent(resume: Resume, modifier: Modifier) {
         item {
             HorizontalDivider(
                 modifier = Modifier
-                    .padding( 16.dp)
+                    .padding(16.dp)
                     .fillMaxWidth(),
                 thickness = 1.dp
             )

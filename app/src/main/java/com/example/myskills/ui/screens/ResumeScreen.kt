@@ -36,11 +36,14 @@ import com.example.myskills.ui.models.Skill
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import com.example.myskills.R
+import com.example.myskills.ui.elements.ExperienceItem
 import com.example.myskills.ui.elements.SkillTagView
 
 @Composable
@@ -63,6 +66,8 @@ fun ResumeContent(resume: Resume, modifier: Modifier) {
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+
+        //region Header info
         item {
             val painter = rememberAsyncImagePainter(
                 model = resume.name,
@@ -92,7 +97,7 @@ fun ResumeContent(resume: Resume, modifier: Modifier) {
         item {
             Text(
                 text = resume.name,
-                style = MaterialTheme.typography.headlineLarge,
+                style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold),
                 modifier = Modifier
                     .padding(top = 16.dp)
                     .fillMaxWidth(),
@@ -103,14 +108,15 @@ fun ResumeContent(resume: Resume, modifier: Modifier) {
         item {
             Text(
                 text = resume.position,
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
                 modifier = Modifier
                     .fillMaxWidth(),
                 textAlign = TextAlign.Center
             )
         }
+        //endregion
 
-        //Contact Information
+        //region Contact Information
         item {
             Row(
                 modifier = Modifier
@@ -142,6 +148,7 @@ fun ResumeContent(resume: Resume, modifier: Modifier) {
             }
 
         }
+        //endregion
 
         item {
             HorizontalDivider(
@@ -152,11 +159,11 @@ fun ResumeContent(resume: Resume, modifier: Modifier) {
             )
         }
 
-        //Studies Section
+        //region Studies Section
         item {
             Text(
                 text = "Education",
-                style = MaterialTheme.typography.headlineSmall,
+                style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
                 modifier = Modifier
                     .fillMaxWidth(),
                 textAlign = TextAlign.Start
@@ -166,6 +173,30 @@ fun ResumeContent(resume: Resume, modifier: Modifier) {
         items(resume.studies) { education ->
             StudyItem(education)
         }
+        //endregion
+
+        item {
+            HorizontalDivider(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth(),
+                thickness = 1.dp
+            )
+        }
+        //region Skills Section
+        item {
+            Text(
+                text = "Skills",
+                style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+                modifier = Modifier
+                    .fillMaxWidth(),
+                textAlign = TextAlign.Start
+            )
+        }
+        item {
+            SkillTagView(resume.skills)
+        }
+        //endregion
 
         item {
             HorizontalDivider(
@@ -176,20 +207,21 @@ fun ResumeContent(resume: Resume, modifier: Modifier) {
             )
         }
 
+        //region Experience Section
         item {
             Text(
-                text = "Skills",
-                style = MaterialTheme.typography.headlineSmall,
+                text = "Laboral Experience",
+                style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
                 modifier = Modifier
                     .fillMaxWidth(),
                 textAlign = TextAlign.Start
             )
         }
-        // Skills Section
 
-        item{
-            SkillTagView(resume.skills)
+        items(resume.experiences) { experiences ->
+            ExperienceItem(experiences)
         }
+        //endregion
 
     }
 }

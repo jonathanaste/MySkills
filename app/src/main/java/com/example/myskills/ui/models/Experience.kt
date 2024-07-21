@@ -1,9 +1,8 @@
 package com.example.myskills.ui.models
 
 data class Experience(
+    val position: String,
     val company: String,
-    val role: String,
-    val startDate: String,
-    val endDate: String,
-    val description: String
+    val years: String,
+    val responsibilities: List<String> // Or any other relevant fields
 )
